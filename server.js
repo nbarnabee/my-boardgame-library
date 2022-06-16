@@ -41,25 +41,17 @@ app.get("/", (request, response) => {
     .catch((error) => console.error(error));
 });
 
-app.post("/search", async (request, response) => {
+app.post("/search", (request, response) => {
   const gameTitle = request.body.gameTitle;
   console.log(`Request received; searching for ${gameTitle}`);
   const id = process.env.BGA_CLIENT_ID;
-  try {
-    const data = await getInfo(gameTitle);
-    response.json("Something is happening");
-  } catch {
-    console.log(err);
-  }
-});
-
-function getInfo(str) {
-  const id = process.env.BGA_CLIENT_ID;
-  fetch(`https://api.boardgameatlas.com/api/search?name=${str}&client_id=${id}`)
+  fetch(
+    `https://api.boardgameatlas.com/api/search?name=${gameTitle}&client_id=${id}`
+  )
     .then((response) => response.json())
     .then((data) => console.log(data))
     .catch((err) => console.log(err));
-}
+});
 
 app.post("/addGame", (request, response) => {
   console.log(request.body);
