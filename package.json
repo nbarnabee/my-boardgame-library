@@ -1,8 +1,9 @@
 {
-  "name": "boardgames-express",
+  "name": "my-boardgame-library",
   "version": "1.0.0",
-  "description": "",
+  "description": "Search for boardgames using the Board Game Atlas API and add them to your collection",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
@@ -15,7 +16,8 @@
     "dotenv": "^16.0.1",
     "ejs": "^3.1.8",
     "express": "^4.18.1",
-    "mongodb": "^4.7.0"
+    "mongodb": "^4.7.0",
+    "node-fetch": "^3.2.6"
   },
   "devDependencies": {
     "nodemon": "^2.0.16"
