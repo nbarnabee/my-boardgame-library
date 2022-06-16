@@ -8,32 +8,45 @@
   </head>
 
   <body>
-    <h1>Boardgame Collection</h1>
-    <ul class="boardgames">
-      <!-- "info" is referring to the array of boardgame objects that will be received from the database.  
+    <header>
+      <h1>My Boardgame Collection</h1>
+    </header>
+
+    <section>
+      <h2>Find a game</h2>
+      <form action="/search" method="POST">
+        <label for="game-search">
+          <input type="text" placeholder="Title" name="gameTitle" />
+        </label>
+        <button type="submit">Search</button>
+      </form>
+    </section>
+
+    <section aria-labelledby="my-boardgames">
+      <h2 id="my-boardgames">My Boardgames</h2>
+      <ul class="boardgames">
+        <!-- "info" is referring to the array of boardgame objects that will be received from the database.  
         The "for" loop will step through the array, create an HTML element for each object it finds there, and fill the element with values taken from the object. -->
-      <% for (let i=0; i < info.length; i++) {%>
-      <li class="boardgame">
-        <span><%= info[i].title %></span>
-        <span><%= info[i].publisher %></span>
-        <span><%= info[i].likes %></span>
-        <button class="like" type="button">Like</button>
-        <button class="delete" type="button">Delete</button>
-      </li>
-      <% } %>
-    </ul>
-    <h2>Add a game to the collection:</h2>
+        <% for (let i=0; i < info.length; i++) {%>
+        <li class="boardgame">
+          <span><%= info[i].title %></span>
+          <button class="details" type="button">Details</button>
+          <button class="delete" type="button">Remove</button>
+        </li>
+        <% } %>
+      </ul>
+    </section>
 
     <!-- HTML forms serve as a vehicle for packaging up and sending information to a server.  
-      In the opening tag we specify where this information is going to be sent (the route, or endpoint, in this case "/addGame"), and the method (in this case, POST) -->
+      In the opening tag we specify where this information is going to be sent (the route, or endpoint, in this case "/addGame"), and the method (in this case, POST) 
     <form action="/addGame" method="POST">
       <input type="text" placeholder="Game" name="gameTitle" />
-      <!-- Information taken from the inputs will be stored as key: value pairs in request.body  
-        Specifically, the value of the input's "name" attribute will be the key, and the input's value (what the user enters into the text box) will be the value -->
+      Information taken from the inputs will be stored as key: value pairs in request.body  
+        Specifically, the value of the input's "name" attribute will be the key, and the input's value (what the user enters into the text box) will be the value
       <input type="text" placeholder="Publisher" name="publisherName" />
       <button>Submit</button>
-      <!-- Clicking the button will automatically make the request, according to the "action" and "method" specified in the opening tag of the form -->
-    </form>
+      Clicking the button will automatically make the request, according to the "action" and "method" specified in the opening tag of the form 
+    </form> -->
     <script src="main.js"></script>
   </body>
 </html>
