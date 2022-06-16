@@ -47,7 +47,6 @@ app.post("/search", async (request, response) => {
   const id = process.env.BGA_CLIENT_ID;
   try {
     const data = await getInfo(gameTitle);
-    console.log(data);
     response.json("Something is happening");
   } catch {
     console.log(err);
@@ -58,12 +57,8 @@ function getInfo(str) {
   const id = process.env.BGA_CLIENT_ID;
   fetch(`https://api.boardgameatlas.com/api/search?name=${str}&client_id=${id}`)
     .then((response) => response.json())
-    .then((data) => {
-      data;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    .then((data) => console.log(data))
+    .catch((err) => console.log(err));
 }
 
 app.post("/addGame", (request, response) => {
