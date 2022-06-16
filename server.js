@@ -1,10 +1,10 @@
-const express = require("express");
+import express from "express";
 const app = express(); // these first two lines are the standard way to set up express
 const PORT = 5000;
-const MongoClient = require("mongodb").MongoClient; // sets up how we talk to MongoDB
-require("dotenv").config(); // preps the environmental variables
-// note that if the .env file was elsewhere, e.g. inside a folder, we'd have to specify the path within the config() method
-// for instance: require("dotenv").config({path: "./config/.env"});
+import mongodb from "mongodb";
+const MongoClient = mongodb.MongoClient; // sets up how we talk to MongoDB
+import fetch from "node-fetch";
+import "dotenv/config";
 
 let db,
   dbConnectionStr = process.env.DB_STRING, // accesses the environmental variable
@@ -40,6 +40,21 @@ app.get("/", (request, response) => {
     })
     .catch((error) => console.error(error));
 });
+
+app.post("/search", async (request, response) => {
+  const gameTitle = request.body.gameTitle;
+  console.log(`Request received; searching for ${gameTitle}`);
+  const id = process.env.BGA_CLIENT_ID;
+  const data = await getInfo(gameTitle);
+  response.json(data);
+});
+
+function getInfo(str) {
+  const id = process.env.BGA_CLIENT_ID;
+  fetch(`https://api.boardgameatlas.com/api/search?name=${str}&client_id=${id}`)
+    .then((response) => response.json())
+    .then((data) => console.log(data));
+}
 
 app.post("/addGame", (request, response) => {
   console.log(request.body);
