@@ -43,13 +43,13 @@ app.get("/", (request, response) => {
 
 app.post("/search", (request, response) => {
   const gameTitle = request.body.gameTitle;
-  console.log(`Request received; searching for ${gameTitle}`);
   const id = process.env.BGA_CLIENT_ID;
+  console.log(`Request received; searching for ${gameTitle}`);
   fetch(
     `https://api.boardgameatlas.com/api/search?name=${gameTitle}&client_id=${id}`
   )
     .then((response) => response.json())
-    .then((data) => console.log(data))
+    .then((data) => response.json(data.games[0]))
     .catch((err) => console.log(err));
 });
 
