@@ -1,4 +1,4 @@
-import express from "express";
+import express, { response } from "express";
 const app = express(); // these first two lines are the standard way to set up express
 const PORT = 5000;
 import mongodb from "mongodb";
@@ -45,15 +45,25 @@ app.post("/search", async (request, response) => {
   const gameTitle = request.body.gameTitle;
   console.log(`Request received; searching for ${gameTitle}`);
   const id = process.env.BGA_CLIENT_ID;
-  const data = await getInfo(gameTitle);
-  response.json(data);
+  try {
+    const data = await getInfo(gameTitle);
+    console.log(data);
+    response.json("Something is happening");
+  } catch {
+    console.log(err);
+  }
 });
 
 function getInfo(str) {
   const id = process.env.BGA_CLIENT_ID;
   fetch(`https://api.boardgameatlas.com/api/search?name=${str}&client_id=${id}`)
     .then((response) => response.json())
-    .then((data) => console.log(data));
+    .then((data) => {
+      data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 app.post("/addGame", (request, response) => {
