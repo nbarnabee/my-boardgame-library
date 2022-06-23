@@ -41,7 +41,7 @@ app.get("/", (request, response) => {
     .catch((error) => console.error(error));
 });
 
-app.post("/search", (request, response) => {
+app.get("/search", (request, response) => {
   // Here the server is listening for GET requests made to the /search endpoint.  (These are requests made when the search form is submitted)
   const gameTitle = request.body.gameTitle;
   const id = process.env.BGA_CLIENT_ID;
