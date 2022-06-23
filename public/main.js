@@ -1,13 +1,15 @@
 let deleteButtons = Array.from(document.getElementsByClassName("delete"));
 let likeButtons = Array.from(document.getElementsByClassName("like"));
+let detailButtons = Array.from(document.getElementsByClassName("details"));
 
-// Both of these declarations are doing the same basic thing: using getElementsByClassName() to select all of the relevant DOM elements.  getElementsByClassName returns those elements as an HTMLCollection, which isn't quite the same thing as an array.
+// These declarations are doing the same basic thing: using getElementsByClassName() to select all of the relevant DOM elements.  getElementsByClassName returns those elements as an HTMLCollection, which isn't quite the same thing as an array.
 // Since we're going to need to iterate through the lists of buttons, we convert the HTMLCollections into arrays using Array.from()
 
 deleteButtons.forEach((button) => button.addEventListener("click", deleteGame));
 likeButtons.forEach((button) => button.addEventListener("click", addLike));
+detailButtons.forEach((button) => button.addEventListener("click", getDetails));
 
-// Again, the same method is being applied to both arrays:  forEach() iterates through them and attaches an eventListener to each element
+// Again, the same method is being applied to each array:  forEach() iterates through them and attaches an eventListener to each element
 
 async function addLike() {
   const gTitle = this.parentNode.childNodes[1].innerText; // "this" refers to the button that was pressed. What's happening here is that the code is walking up its family tree to find the parentNode (in this case, the list element that contains the button).  Then it looks back down the tree to find a particular childNode and selects that the childNode contains.  That is the value that's being assigned to "sName"
@@ -44,6 +46,19 @@ async function deleteGame() {
     const data = await response.json();
     console.log(data);
     location.reload();
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+// This one is slightly different, because we are in fact accessing the /search endpoint and thus making a search request via the server.  See server.js for details.
+
+async function getDetails() {
+  const gTitle = this.parentNode.childNodes[1].innerText;
+  try {
+    const response = await fetch("search", {
+      method: "post",
+    });
   } catch (err) {
     console.log(err);
   }
