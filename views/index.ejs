@@ -14,12 +14,10 @@
 
     <section>
       <h2>Find a game</h2>
-      <form action="/search" method="POST">
-        <label for="game-search">
-          <input type="text" placeholder="Title" name="gameTitle" />
-        </label>
-        <button type="submit">Search</button>
-      </form>
+      <label for="game-search">
+        <input type="text" placeholder="Title" name="gameTitle" />
+      </label>
+      <button type="button" class="search">Search</button>
     </section>
 
     <section aria-labelledby="my-boardgames">
@@ -30,8 +28,8 @@
         <% for (let i=0; i < info.length; i++) {%>
         <li class="boardgame">
           <span><%= info[i].title %></span>
-          <button class="details" type="button">Details</button>
-          <button class="delete" type="button">Remove</button>
+          <button type="button" class="details">Details</button>
+          <button type="button" class="delete">Remove</button>
         </li>
         <% } %>
       </ul>
