@@ -10,7 +10,7 @@ let db,
   dbConnectionStr = process.env.DB_STRING, // accesses the environmental variable
   dbName = "boardgames";
 
-// set up the connection to the database
+// set up the connection to the database.  The dbConnectionStr is an private environmental variable that is stored in the .env file.
 MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true }).then(
   (client) => {
     console.log(`Connected to ${dbName} Database`);
